@@ -66,15 +66,17 @@ Dans ce projet, le frontend joue aussi le rôle d’**oracle**.
 
 ---
 
-## 🗂️ Architecture du projet
+## Stack technique 
 
 Les technologies choisies sont :  
 – Solidity pour les smart contracts (avec Foundry et Hardhat) ;  
 – React pour l’IHM ;  
-– Python avec FastApi et scikit-learn pour le calcul des points via un modèle de machine learning.  
-  
-Chaque partie a son répertoire.  
-  
+– Python avec FastApi et scikit-learn pour le calcul des points via un modèle de machine learning.    
+
+### 🗂️ Architecture du projet
+
+Chaque partie a son répertoire.
+
 ```text
 padelrank-ai/
 │
@@ -86,3 +88,17 @@ padelrank-ai/
 │
 └── README.md
 ```
+
+### Web3 Frontend Stack
+
+- **Next.js** – Framework React pour le frontend et le routing  
+  🔗 [nextjs.org](https://nextjs.org)
+
+- **viem** – Librairie bas niveau pour interagir avec Ethereum  
+  🔗 [viem.sh](https://viem.sh)
+
+- **wagmi** – Hooks React pour Web3 et gestion des wallets  
+  🔗 [wagmi.sh](https://wagmi.sh)
+
+- **RainbowKit** – UI pour la connexion aux wallets  
+  🔗 [rainbowkit.com](https://www.rainbowkit.com)
