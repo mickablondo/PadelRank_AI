@@ -8,8 +8,6 @@ L’objectif est simple :
 > attribuer des points après chaque match de façon plus intelligente
 qu’avec des règles fixes.
 
-[[_TOC_]]
-
 ---
 
 ## 🧠 Principe général
