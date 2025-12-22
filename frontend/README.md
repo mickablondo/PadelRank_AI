@@ -1,19 +1,31 @@
 # Partie frontend
 
-## Création
+## Création du projet Next.js
+```bash
 cd frontend  
 npx create-next-app@latest . --typescript --eslint --app --src-dir --import-alias "@/*"  
-React Compiler --> No
-Tailwindcss --> Yes
+>> React Compiler --> No
+>> Tailwindcss --> Yes
 
-npm install -D tailwindcss postcss autoprefixer  
-npm install viem wagmi @rainbow-me/rainbowkit
+# TailwindCSS et PostCSS
+npm install -D tailwindcss postcss autoprefixer
+
+# Librairies blockchain
+npm install viem
+npm install wagmi@2.19.5 @rainbow-me/rainbowkit@2.2.10
+```
   
-créer .env.local avec le ProjectID créé sur https://cloud.walletconnect.com/ (pour que Wagmi/Rainbowkit fonctionne).   
-Ajouter dans le .env.local : NEXT_PUBLIC_REOWN_PROJECT_ID=<PROJECT_ID>  
+Créer un fichier **.env.local** à la racine du frontend.  
+Créer un ProjectID WalletConnect depuis https://cloud.walletconnect.com/ (pour que Wagmi/Rainbowkit fonctionne).   
+Ajouter dans le **.env.local** :
+```bash
+NEXT_PUBLIC_REOWN_PROJECT_ID=<PROJECT_ID>  
+```
 
+Démarrage du serveur :  
+```bash
 npm run dev
-
+```
 
 ## Doc Next.js
 
