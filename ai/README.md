@@ -1,12 +1,36 @@
-cd ai  
-environnement virtuel via vs code.  
-PadelRank_AI\.venv\Scripts\python.exe -m pip install -r .\requirements.txt  
-python .\generate_full_matches_csv.py pour générer un grand fichier csv. 
-python train.py pour générer le joblib. 
-.\.venv\Scripts\uvicorn.exe ai.app:app --reload  
+# IA
 
-Ednpoints disponibles :  
-/ juste pour un petit bonjour.  
-/favicon.ico pour récupérer l'icône.  
-/health pour vérifier le statut.  
-/points pour générer les points gagnés par le vainqueur
+## How to use
+
+### Commandes
+
+```bash
+# se déplacer dans le bon répertoire
+cd ai
+```
+
+Ensuite, il faut créer un environnement virtuel sur VS Code : [documentation](https://code.visualstudio.com/docs/python/environments).  
+Cette action créera un sous-répertoire **.venv** dans votre répertoire **ai**.
+
+```bash
+# installer les dépendances en utilisant l'environnement virtuel créé
+PadelRank_AI\.venv\Scripts\python.exe -m pip install -r .\requirements.txt
+
+# si besoin, générer un fichier CSV pour l'entraînement de l'IA
+python .\generate_full_matches_csv.py
+
+# entraîner le modèle,ce qui générera le fichier model.joblib
+python train.py
+
+# démarrer le serveur
+.\.venv\Scripts\uvicorn.exe ai.app:app --reload
+```
+
+### Endpoints
+
+| Méthode | Endpoint     | Description                                                  |
+| ------- | ------------ | ------------------------------------------------------------ |
+| GET     | /            | juste pour un petit bonjour.                                 |
+| GET     | /favicon.ico | pour récupérer l'icône.                                      |
+| GET     | /health      | pour vérifier le statut.                                     |
+| GET     | /points      | pour générer et récupérer les points gagnés par le vainqueur |

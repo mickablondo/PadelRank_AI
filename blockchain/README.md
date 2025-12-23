@@ -18,13 +18,19 @@ npx hardhat --init
 npm install --save-dev "@nomicfoundation/hardhat-toolbox-viem@^5.0.1" "@nomicfoundation/hardhat-ignition@^3.0.6" "@types/node@^22.8.5" "forge-std@foundry-rs/forge-std#v1.9.4" "typescript@~5.8.0" "viem@^2.30.0"
 ```
 
-## Documentation officielle - Sample Hardhat 3 Beta Project (`node:test` and `viem`)
+## How to use
+
+```bash
+npm install
+```
+
+### Documentation officielle - Sample Hardhat 3 Beta Project (`node:test` and `viem`)
 
 This project showcases a Hardhat 3 Beta project using the native Node.js test runner (`node:test`) and the `viem` library for Ethereum interactions.
 
 To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
 
-### Project Overview
+#### Project Overview
 
 This example project includes:
 
@@ -33,9 +39,9 @@ This example project includes:
 - TypeScript integration tests using [`node:test`](nodejs.org/api/test.html), the new Node.js native test runner, and [`viem`](https://viem.sh/).
 - Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
 
-### Usage
+#### Usage
 
-#### Running Tests
+##### Running Tests
 
 To run all the tests in the project, execute the following command:
 
@@ -50,7 +56,7 @@ npx hardhat test solidity
 npx hardhat test nodejs
 ```
 
-#### Make a deployment to Sepolia
+##### Make a deployment to Sepolia
 
 This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
 

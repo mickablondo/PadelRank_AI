@@ -1,9 +1,10 @@
 # Partie frontend
 
 ## Création du projet Next.js
+
 ```bash
-cd frontend  
-npx create-next-app@latest . --typescript --eslint --app --src-dir --import-alias "@/*"  
+cd frontend
+npx create-next-app@latest . --typescript --eslint --app --src-dir --import-alias "@/*"
 >> React Compiler --> No
 >> Tailwindcss --> Yes
 
@@ -14,24 +15,35 @@ npm install -D tailwindcss postcss autoprefixer
 npm install viem
 npm install wagmi@2.19.5 @rainbow-me/rainbowkit@2.2.10
 ```
-  
-Créer un fichier **.env.local** à la racine du frontend.  
-Créer un ProjectID WalletConnect depuis https://cloud.walletconnect.com/ (pour que Wagmi/Rainbowkit fonctionne).   
-Ajouter dans le **.env.local** :
+
+## How to use
+
+### Installation
+
 ```bash
-NEXT_PUBLIC_REOWN_PROJECT_ID=<PROJECT_ID>  
+cd frontend
+npm install
 ```
 
-Démarrage du serveur :  
+Créer un fichier **.env.local** à la racine du frontend.  
+Créer un ProjectID WalletConnect depuis https://cloud.walletconnect.com/ (pour que Wagmi/Rainbowkit fonctionne).  
+Ajouter dans le **.env.local** :
+
+```bash
+NEXT_PUBLIC_REOWN_PROJECT_ID=<PROJECT_ID>
+```
+
+Démarrage du serveur :
+
 ```bash
 npm run dev
 ```
 
-## Doc Next.js
+### Documentation officielle Next.js
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-### Getting Started
+#### Getting Started
 
 First, run the development server:
 
@@ -51,7 +63,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-### Learn More
+#### Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -60,7 +72,7 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-### Deploy on Vercel
+#### Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 

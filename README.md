@@ -5,8 +5,9 @@ l’intégration du **Machine Learning** avec des **smart contracts Solidity**
 pour gérer un **classement de joueurs de padel**.
 
 L’objectif est simple :
+
 > attribuer des points après chaque match de façon plus intelligente
-qu’avec des règles fixes.
+> qu’avec des règles fixes.
 
 ---
 
@@ -26,6 +27,7 @@ L’IA ne prédit pas le vainqueur.
 Elle sert à **évaluer la valeur d’un match**.
 
 Elle prend en compte par exemple :
+
 - le niveau des joueurs
 - leur classement actuel
 - l’écart de score
@@ -43,6 +45,7 @@ L’IA est volontairement **simple et explicable**
 ## 🔗 Rôle de la blockchain (Solidity)
 
 Le smart contract :
+
 - stocke les joueurs et leurs points
 - applique les points calculés par l’IA
 - empêche toute modification ou triche a posteriori
@@ -55,6 +58,7 @@ Il exécute des règles strictes et vérifiables.
 ## 🖥️ Rôle du frontend
 
 Le frontend React :
+
 - permet de saisir les résultats des matchs
 - appelle l’API IA pour calculer les points
 - envoie la transaction au smart contract
@@ -64,12 +68,12 @@ Dans ce projet, le frontend joue aussi le rôle d’**oracle**.
 
 ---
 
-## Stack technique 
+## Stack technique
 
-Les technologies choisies sont :  
-– Solidity pour les smart contracts (avec Foundry et Hardhat) ;  
-– React pour l’IHM ;  
-– Python avec FastApi et scikit-learn pour le calcul des points via un modèle de machine learning.    
+Les technologies principales choisies sont :  
+– React pour l’IHM ([détails](#web3-frontend-stack)) ;  
+– Solidity pour les smart contracts ([détails](#web3-backend-stack)) ;  
+– Python pour le calcul des points via un modèle de machine learning ([détails](#ai-backend-stack)).
 
 ### 🗂️ Architecture du projet
 
@@ -78,13 +82,13 @@ Chaque partie a son répertoire.
 ```text
 padelrank-ai/
 │
-├── contracts/
-│
 ├── ai/
 │
-├── frontend/  
+├── blockchain/
 │
-└── README.md
+├── frontend/
+│
+└── README.md (vous êtes ici :p)
 ```
 
 ### Web3 Frontend Stack
@@ -101,5 +105,23 @@ padelrank-ai/
 - **RainbowKit** – UI pour la connexion aux wallets  
   🔗 [rainbowkit.com](https://www.rainbowkit.com)
 
+### AI Backend Stack
+
+- **FastAPI** – Framework pour créer des APIs en Python  
+  🔗 [fastapi.tiangolo.com](https://fastapi.tiangolo.com)
+
+- **scikit-learn** – Librairie pour le Machine Learning en Python  
+  🔗 [scikit-learn.org](https://scikit-learn.org)
+
+### Web3 Backend Stack
+
+- **Hardhat v3** – Framework pour le développement de smart contracts Ethereum  
+  🔗 [hardhat.org](https://hardhat.org)
+
 ## How to use
-Voir README.md de chaque répertoire.
+
+Merci de vous référer au README.md de chaque sous-partie :
+
+- [Blockchain](./blockchain/README.md)
+- [IA](./ai/README.md)
+- [Frontend](./frontend/README.md)
