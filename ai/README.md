@@ -1,4 +1,4 @@
-# IA
+# Partie IA
 
 ## How to use
 
