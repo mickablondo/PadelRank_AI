@@ -1,5 +1,7 @@
 # Partie IA
 
+TODO : prendre en compte le tour du tournoi (quart, demi, finale...) car plus important de gagner une finale (donc un tournoi) quun premier tour.
+
 ## How to use
 
 ### Commandes
