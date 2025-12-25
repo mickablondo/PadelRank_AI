@@ -32,6 +32,7 @@ Elle prend en compte par exemple :
 - leur classement actuel
 - l’écart de score
 - le type de tournoi
+- le tour du tournoi dans lequel le match s'est effectué (quart, demi, finale...)
 
 Elle retourne un résultat simple : un entier représentant les points du vainqueur.
 
