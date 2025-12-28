@@ -14,7 +14,7 @@ const projectId = process.env.NEXT_PUBLIC_REOWN_PROJECT_ID;
 if (!projectId) throw new Error("NEXT_PUBLIC_REOWN_PROJECT_ID is missing!");
 
 const config = getDefaultConfig({
-  appName: "Mon App",
+  appName: "PadelRank AI",
   projectId: projectId,
   chains: [mainnet, sepolia],
   transports: {
