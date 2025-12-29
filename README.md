@@ -126,3 +126,10 @@ Merci de vous référer au README.md de chaque sous-partie :
 - [Blockchain](./blockchain/README.md)
 - [IA](./ai/README.md)
 - [Frontend](./frontend/README.md)
+
+## 🚧 Work in Progress
+- formulaire sur l'ihm ;
+- connexion ihm python ;
+- connexion ihm blockchain ;
+- améliorer système de point : mettre des points fixes selon le tour et le type du tournoi ;
+- smart contract... ;
