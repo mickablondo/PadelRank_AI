@@ -128,9 +128,9 @@ Merci de vous référer au README.md de chaque sous-partie :
 - [Frontend](./frontend/README.md)
 
 ## 🚧 Work in Progress
-- formulaire sur l'ihm #4 ;
-- connexion ihm python #4 ;
-- connexion ihm blockchain #4 ;
-- améliorer système de point : mettre des points fixes selon le tour et le type du tournoi ==> côté python car ihm pas de logique, trop lourd pour la blockchain #5 ;
-- smart contract... #6 ;
-- tableau ihm classement joueurs #7 ;
+- formulaire sur l'ihm [#4](https://github.com/mickablondo/PadelRank_AI/issues/4);
+- connexion ihm python [#4](https://github.com/mickablondo/PadelRank_AI/issues/4) ;
+- connexion ihm blockchain [#4](https://github.com/mickablondo/PadelRank_AI/issues/4) ;
+- améliorer système de point : mettre des points fixes selon le tour et le type du tournoi ==> côté python car ihm pas de logique, trop lourd pour la blockchain [#5](https://github.com/mickablondo/PadelRank_AI/issues/5) ;
+- smart contract... [#6](https://github.com/mickablondo/PadelRank_AI/issues/6) ;
+- tableau ihm classement joueurs [#7](https://github.com/mickablondo/PadelRank_AI/issues/7) ;
