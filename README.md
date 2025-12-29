@@ -131,5 +131,5 @@ Merci de vous référer au README.md de chaque sous-partie :
 - formulaire sur l'ihm ;
 - connexion ihm python ;
 - connexion ihm blockchain ;
-- améliorer système de point : mettre des points fixes selon le tour et le type du tournoi ;
+- améliorer système de point : mettre des points fixes selon le tour et le type du tournoi ==> côté python car ihm pas de logique, trop lourd pour la blockchain ;
 - smart contract... ;
