@@ -29,8 +29,14 @@ def get_points(
     winner_rank: int,
     loser_rank: int,
     score_diff: int,
-    tournament_level: int
+    tournament_level: int,
+    tour: int,
+    is_winner: boolean
 ):
     features = [[winner_rank, loser_rank, score_diff, tournament_level]]
     prediction = model.predict(features)
+    # TODO : determiner si le tour est le dernier du tournoi
+    # TODO : si vainqueur et dernier tour alors recuperer points fixes + bonus
+    # TODO : si vainqueur et pas dernier tour, juste points bonus
+    # TODO : si perdant alors juste pounts fixes
     return {"points": round(float(prediction[0]), 2)}
