@@ -1,7 +1,5 @@
 # Partie IA
 
-TODO : prendre en compte le tour du tournoi (quart, demi, finale...) car plus important de gagner une finale (donc un tournoi) quun premier tour.
-
 ## How to use
 
 ### Commandes
@@ -35,4 +33,4 @@ python train.py
 | GET     | /            | juste pour un petit bonjour.                                 |
 | GET     | /favicon.ico | pour récupérer l'icône.                                      |
 | GET     | /health      | pour vérifier le statut.                                     |
-| GET     | /points      | pour générer et récupérer les points gagnés par le vainqueur |
+| GET     | /points      | pour générer et récupérer les points gagnés par le vainqueur: bonus + points fixes |
