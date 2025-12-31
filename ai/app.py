@@ -1,8 +1,19 @@
+from xmlrpc.client import boolean
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from pathlib import Path
 import joblib
 import numpy as np
+import logging
+
+from ai.services.tournament_service import get_points_fixes, is_last_round
+
+# Configure le logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -30,13 +41,20 @@ def get_points(
     loser_rank: int,
     score_diff: int,
     tournament_level: int,
-    tour: int,
+    round_num: int,
     is_winner: boolean
 ):
     features = [[winner_rank, loser_rank, score_diff, tournament_level]]
     prediction = model.predict(features)
-    # TODO : determiner si le tour est le dernier du tournoi
-    # TODO : si vainqueur et dernier tour alors recuperer points fixes + bonus
-    # TODO : si vainqueur et pas dernier tour, juste points bonus
-    # TODO : si perdant alors juste pounts fixes
-    return {"points": round(float(prediction[0]), 2)}
+
+    # si perdant alors juste points fixes
+    if(not is_winner):
+        logger.info(f"1 - is_winner: {is_winner}, round: {round_num}, tournament: {tournament_level}")
+        return {"points": get_points_fixes(tournament_level, round_num)}
+    else:
+        if(is_last_round(tournament_level, round_num)): # si vainqueur et dernier tour alors points fixes + bonus
+            logger.info(f"2 - is_winner: {is_winner}, round: {round_num}, tournament: {tournament_level}")
+            return {"points": round(float(prediction[0]) + get_points_fixes(tournament_level, round_num), 2)}
+        else: # si vainqueur mais pas dernier tour alors juste bonus
+            logger.info(f"3 - is_winner: {is_winner}, round: {round_num}, tournament: {tournament_level}")
+            return {"points": round(float(prediction[0]), 2)}
