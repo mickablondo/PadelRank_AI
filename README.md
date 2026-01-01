@@ -15,7 +15,7 @@ L’objectif est simple :
 
 1. Des joueurs disputent un match de padel
 2. Les informations du match sont envoyées à une IA (Machine Learning)
-3. L’IA calcule combien de points chaque joueur doit gagner ou perdre
+3. L’IA calcule combien de points bonus chaque joueur doit gagner (en plus des points fixes liés aux types de tournoi)
 4. Ces points sont appliqués **on-chain** via un smart contract Solidity
 5. Le classement est basé sur le total de points accumulés
 
