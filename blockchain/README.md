@@ -1,6 +1,6 @@
 # Partie blockchain
 
-Choix d'utiliser [Hardhat](https://hardhat.org/).
+Pour la oartie blockchain, j'ai choisi d'utiliser [Hardhat](https://hardhat.org/).
 
 ## Initialisation du projet
 
