@@ -109,7 +109,7 @@ export default function AdminPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 space-y-6">
-          {/* Date du match */}
+          {/* Date du match : TODO qu'en faire ??? */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Date du match
@@ -246,7 +246,7 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* Bouton de soumission */}
+          {/* Validation du formulaire */}
           <button
             type="submit"
             disabled={submitting}
