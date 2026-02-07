@@ -76,7 +76,7 @@ export default function Home() {
             </h3>
             <p className="text-gray-600 max-w-md">
               Cette application permet de gérer un système de classement pour les joueurs de padel
-              avec authentification Web3 et gestion décentralisée des scores.
+              avec une gestion décentralisée des scores et un système intelligent d'attribution de points basé sur les performances.
             </p>
           </div>
         </div>
