@@ -133,3 +133,14 @@ Merci de vous référer au README.md de chaque sous-partie :
 - connexion ihm blockchain [#4](https://github.com/mickablondo/PadelRank_AI/issues/4) ;
 - smart contract... [#6](https://github.com/mickablondo/PadelRank_AI/issues/6) ;
 - tableau ihm classement joueurs [#7](https://github.com/mickablondo/PadelRank_AI/issues/7) ;
+
+### Ebauche de l'IHM
+
+Page d'accueil :  
+![Page d'accueil](images/accueil.png)  
+
+Page de classement :  
+![Classement](images/classement.png)  
+
+Page d'administration :  
+![Administration](images/admin.png)
