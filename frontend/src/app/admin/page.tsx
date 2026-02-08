@@ -3,18 +3,7 @@
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import Navigation from '@/components/Navigation';
-
-// TODO : supprimer la liste des joueurs et faire un vrai score en 2 sets avec tie-break + mettre niveau du tournoi + classement des joueurs pour calculer les points avec l'API IA (????) ou le trouver via API (mieux mais lourd)
-const availablePlayers = [
-  'Marc Dupont',
-  'Julie Martin',
-  'Pierre Dubois',
-  'Sophie Laurent',
-  'Thomas Bernard',
-  'Emma Petit',
-  'Lucas Moreau',
-  'Léa Simon',
-];
+import { playerService } from '@/services/playerService';
 
 export default function AdminPage() {
   const { isConnected, address } = useAccount();
@@ -31,6 +20,8 @@ export default function AdminPage() {
 
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
+
+  const availablePlayers = playerService.getPlayersNames();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
