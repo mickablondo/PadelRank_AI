@@ -25,8 +25,12 @@ export default function AdminPage() {
     team1Player2: '',
     team2Player1: '',
     team2Player2: '',
-    scoreTeam1: '',
-    scoreTeam2: '',
+    scoreSet1Team1: '',
+    scoreSet1Team2: '',
+    scoreSet2Team1: '',
+    scoreSet2Team2: '',
+    scoreSet3Team1: '',
+    scoreSet3Team2: '',
     date: new Date().toISOString().split('T')[0],
   });
 
@@ -48,8 +52,9 @@ export default function AdminPage() {
       return;
     }
 
-    if (!matchData.scoreTeam1 || !matchData.scoreTeam2) {
-      setMessage({ type: 'error', text: 'Veuillez entrer les scores' });
+    if (!matchData.scoreSet1Team1 || !matchData.scoreSet1Team2 ||
+        !matchData.scoreSet2Team1 || !matchData.scoreSet2Team2) {
+      setMessage({ type: 'error', text: 'Veuillez entrer les scores pour tous les sets' });
       setSubmitting(false);
       return;
     }
@@ -68,8 +73,12 @@ export default function AdminPage() {
         team1Player2: '',
         team2Player1: '',
         team2Player2: '',
-        scoreTeam1: '',
-        scoreTeam2: '',
+        scoreSet1Team1: '',
+        scoreSet1Team2: '',
+        scoreSet2Team1: '',
+        scoreSet2Team2: '',
+        scoreSet3Team1: '',
+        scoreSet3Team2: '',
         date: new Date().toISOString().split('T')[0],
       });
       
@@ -207,31 +216,109 @@ export default function AdminPage() {
           {/* Score */}
           <div className="border border-gray-200 rounded-lg p-4">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Score final</h3>
-            <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+            
+            {/* En-têtes des colonnes */}
+            <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-2">
+              <div></div> {/* Colonne vide pour les labels de sets */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 text-center">
+                <label className="block text-sm font-medium text-gray-700 text-center">
                   Équipe 1
                 </label>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 text-center">
+                  Équipe 2
+                </label>
+              </div>
+            </div>
+
+            {/* Set 1 */}
+            <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-2">
+              <div className="flex items-center">
+                <label className="text-sm font-medium text-gray-700">
+                  Set 1
+                </label>
+              </div>
+              <div>
                 <input
                   type="number"
                   min="0"
                   max="10"
-                  value={matchData.scoreTeam1}
-                  onChange={(e) => setMatchData({ ...matchData, scoreTeam1: e.target.value })}
+                  value={matchData.scoreSet1Team1}
+                  onChange={(e) => setMatchData({ ...matchData, scoreSet1Team1: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 text-center">
-                  Équipe 2
-                </label>
                 <input
                   type="number"
                   min="0"
                   max="10"
-                  value={matchData.scoreTeam2}
-                  onChange={(e) => setMatchData({ ...matchData, scoreTeam2: e.target.value })}
+                  value={matchData.scoreSet1Team2}
+                  onChange={(e) => setMatchData({ ...matchData, scoreSet1Team2: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Set 2 */}
+            <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-2">
+              <div className="flex items-center">
+                <label className="text-sm font-medium text-gray-700">
+                  Set 2
+                </label>
+              </div>
+              <div>
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  value={matchData.scoreSet2Team1}
+                  onChange={(e) => setMatchData({ ...matchData, scoreSet2Team1: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  value={matchData.scoreSet2Team2}
+                  onChange={(e) => setMatchData({ ...matchData, scoreSet2Team2: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Set 3 */}
+            <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
+              <div className="flex items-center">
+                <label className="text-sm font-medium text-gray-700">
+                  Set 3
+                </label>
+              </div>
+              <div>
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  value={matchData.scoreSet3Team1}
+                  onChange={(e) => setMatchData({ ...matchData, scoreSet3Team1: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  value={matchData.scoreSet3Team2}
+                  onChange={(e) => setMatchData({ ...matchData, scoreSet3Team2: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
