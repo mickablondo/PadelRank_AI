@@ -40,8 +40,8 @@ export default function AdminPage() {
   const availablePlayers = playerService.getPlayersNames();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
+    e.preventDefault(); // pour empêcher le rechargement de la page lors de la soumission du formulaire
+    setSubmitting(true); // pour désactiver le bouton de validation
     setMessage({ type: '', text: '' });
 
     // Validation
