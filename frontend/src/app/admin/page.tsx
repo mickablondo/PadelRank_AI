@@ -59,6 +59,7 @@ export default function AdminPage() {
       return;
     }
 
+    // TODO : appeler l'API pour connaître les points + API pourenregistrer le résultat du match
     // Simuler l'envoi des données
     setTimeout(() => {
       console.log('Résultat du match enregistré:', matchData);
