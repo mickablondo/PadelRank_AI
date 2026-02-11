@@ -7,7 +7,6 @@ import { playerService } from '@/services/playerService';
 
 // TODO-list :
 // - Ajouter un champ pour le niveau du tournoi (ex: Open, Challenger, Future)
-// - Mieux gérer les sets (ex: 6-3, 7-5 ou 6-4, 3-6, 10-8)
 // - Lorsqu'un joueur est sélectionné dans une équipe, le retirer de la liste de sélection de l'autre équipe pour éviter les doublons
 // - Adapter le formulaire pour l'appel à l'API IA : winner_rank (à ajouter), loser_rank (à ajouter), score_diff (se calcule par rapport aux jeux indiqués), tournament_level (à ajouter), round_num (à ajouter), is_winner (se devine par le score indiqué)
 
