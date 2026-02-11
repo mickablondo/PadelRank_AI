@@ -38,22 +38,51 @@ export default function AdminPage() {
 
   const availablePlayers = playerService.getPlayersNames();
 
+  const validateMatchData = (data: typeof matchData) => {
+    const errors: string[] = [];
+
+    // Vérification des joueurs sélectionnés et unicité
+    const players = [data.team1Player1, data.team1Player2, data.team2Player1, data.team2Player2];
+    if (players.some((p) => !p)) {
+      errors.push('Veuillez sélectionner tous les joueurs');
+    }
+    const uniquePlayers = new Set(players);
+    if (uniquePlayers.size < 4) {
+      errors.push("Chaque joueur doit être unique (pas de doublons entre équipes)");
+    }
+
+    // Vérification basique des scores (au minimum les deux premiers sets demandés)
+    const requiredScoreFields = ['scoreSet1Team1', 'scoreSet1Team2', 'scoreSet2Team1', 'scoreSet2Team2'];
+    if (requiredScoreFields.some((k) => !(data as any)[k])) {
+      errors.push('Veuillez entrer les scores pour les deux premiers sets');
+    }
+
+    // Vérifier que les valeurs de scores sont numériques et raisonnables
+    const allScoreFields = ['scoreSet1Team1','scoreSet1Team2','scoreSet2Team1','scoreSet2Team2','scoreSet3Team1','scoreSet3Team2'];
+    for (const key of allScoreFields) {
+      const val = (data as any)[key];
+      if (val !== '' && val !== undefined) {
+        const n = Number(val);
+        if (Number.isNaN(n)) {
+          errors.push(`Score invalide pour ${key}`);
+        } else if (n < 0 || n > 7) { // amélioration : cohérence entre le score des deux équipes pour un même set (ex: 6-0, 7-5, et non 7-4, 6-6 ou 5-2)
+          errors.push(`Score hors plage pour ${key}`); // TODO : remplacer key par une version plus lisible (ex: "Score du set 1 pour l'équipe 1")
+        }
+      }
+    }
+
+    return { valid: errors.length === 0, errors } as const;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // pour empêcher le rechargement de la page lors de la soumission du formulaire
     setSubmitting(true); // pour désactiver le bouton de validation
     setMessage({ type: '', text: '' });
 
-    // Validation
-    if (!matchData.team1Player1 || !matchData.team1Player2 || 
-        !matchData.team2Player1 || !matchData.team2Player2) {
-      setMessage({ type: 'error', text: 'Veuillez sélectionner tous les joueurs' });
-      setSubmitting(false);
-      return;
-    }
-
-    if (!matchData.scoreSet1Team1 || !matchData.scoreSet1Team2 ||
-        !matchData.scoreSet2Team1 || !matchData.scoreSet2Team2) {
-      setMessage({ type: 'error', text: 'Veuillez entrer les scores pour tous les sets' });
+    // Validation centralisée via validateMatchData
+    const { valid, errors } = validateMatchData(matchData);
+    if (!valid) {
+      setMessage({ type: 'error', text: errors.join(' — ') });
       setSubmitting(false);
       return;
     }
@@ -309,7 +338,6 @@ export default function AdminPage() {
                   value={matchData.scoreSet3Team1}
                   onChange={(e) => setMatchData({ ...matchData, scoreSet3Team1: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
                 />
               </div>
               <div>
@@ -320,7 +348,6 @@ export default function AdminPage() {
                   value={matchData.scoreSet3Team2}
                   onChange={(e) => setMatchData({ ...matchData, scoreSet3Team2: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-center text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
                 />
               </div>
             </div>
