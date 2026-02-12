@@ -9,6 +9,7 @@ import { playerService } from '@/services/playerService';
 // - Ajouter un champ pour le niveau du tournoi (ex: Open, Challenger, Future)
 // - Lorsqu'un joueur est sélectionné dans une équipe, le retirer de la liste de sélection de l'autre équipe pour éviter les doublons
 // - Adapter le formulaire pour l'appel à l'API IA : winner_rank (à ajouter), loser_rank (à ajouter), score_diff (se calcule par rapport aux jeux indiqués), tournament_level (à ajouter), round_num (à ajouter), is_winner (se devine par le score indiqué)
+// - Joueur identifié par une licence plutôt que par son nom (pour éviter les problèmes de doublons de noms) => adapter le formulaire pour afficher les licences plutôt que les noms, et faire la correspondance licence <-> nom dans le service playerService
 
 /**
  * Page d'administration pour enregistrer les résultats des matchs de padel.
@@ -48,7 +49,7 @@ export default function AdminPage() {
     }
     const uniquePlayers = new Set(players);
     if (uniquePlayers.size < 4) {
-      errors.push("Chaque joueur doit être unique (pas de doublons entre équipes)");
+      errors.push("Chaque joueur ne doit être présent qu'une seule fois dans le match");
     }
 
     // Vérification basique des scores (au minimum les deux premiers sets demandés)
