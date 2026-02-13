@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import Navigation from '@/components/Navigation';
 import { playerService } from '@/services/playerService';
+import { tournamentService } from '@/services/tournamentService';
 import { getFieldFromLabel } from '@/utils/fieldToLabel';
 
 // TODO-list :
@@ -33,6 +34,7 @@ export default function AdminPage() {
     scoreSet3Team1: '',
     scoreSet3Team2: '',
     date: new Date().toISOString().split('T')[0],
+    level: '',
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -123,6 +125,7 @@ export default function AdminPage() {
         scoreSet3Team1: '',
         scoreSet3Team2: '',
         date: new Date().toISOString().split('T')[0],
+        level: '',
       });
 
       setSubmitting(false);
@@ -184,6 +187,28 @@ export default function AdminPage() {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
+          </div>
+
+          {/* Niveau du tournoi */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Niveau du tournoi
+            </label>
+            <select
+              value={matchData.level}
+              onChange={(e) =>
+                setMatchData({ ...matchData, level: e.target.value })
+              }
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            >
+              <option value="">Sélectionner...</option>
+              {tournamentService.getTournamentLevels().map((level) => (
+                <option key={level} value={level}>
+                  {level}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Équipe 1 */}
