@@ -48,16 +48,12 @@ export default function AdminPage() {
   const validateMatchData = (data: typeof matchData) => {
     const errors: string[] = [];
 
-    // Vérification que tous les joueurs sont bien renseignés
     const players = [
       data.team1Player1,
       data.team1Player2,
       data.team2Player1,
       data.team2Player2,
     ];
-    if (players.some((p) => !p)) {
-      errors.push('Veuillez sélectionner tous les joueurs');
-    }
 
     // Vérification d'unicité des joueurs (pas de doublons entre les équipes)
     const uniquePlayers = new Set(players);
@@ -65,17 +61,6 @@ export default function AdminPage() {
       errors.push(
         "Chaque joueur ne doit être présent qu'une seule fois dans le match"
       );
-    }
-
-    // Vérification basique des scores (au minimum les deux premiers sets demandés)
-    const requiredScoreFields = [
-      'scoreSet1Team1',
-      'scoreSet1Team2',
-      'scoreSet2Team1',
-      'scoreSet2Team2',
-    ];
-    if (requiredScoreFields.some((k) => !(data as any)[k])) {
-      errors.push('Veuillez entrer les scores pour les deux premiers sets');
     }
 
     // Vérifier que les valeurs de scores sont numériques et raisonnables
