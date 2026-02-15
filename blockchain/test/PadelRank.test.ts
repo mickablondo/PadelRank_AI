@@ -1,7 +1,6 @@
 import { describe, it, beforeEach } from "node:test";
-import { expect } from "chai";
+import assert from "node:assert";
 import hre from "hardhat";
-import "@nomicfoundation/hardhat-toolbox-viem";
 
 describe("PadelRank", function () {
   let padelRank: any;
@@ -10,8 +9,9 @@ describe("PadelRank", function () {
 
   beforeEach(async function () {
     // Obtenir les clients viem
-    publicClient = await (hre as any).viem.getPublicClient();
-    [walletClient] = await (hre as any).viem.getWalletClients();
+    const { viem } = await hre.network.connect();
+    publicClient = await viem.getPublicClient();
+    [walletClient] = await viem.getWalletClients();
 
     // Lire l'artifact du contrat
     const artifact = await hre.artifacts.readArtifact("PadelRank");
@@ -70,38 +70,44 @@ describe("PadelRank", function () {
       await padelRank.write.addPlayer(["LIC001", "Alice"]);
 
       const player = await padelRank.read.getPlayer(["LIC001"]);
-      expect(player[0]).to.equal("LIC001"); // licenceNumber
-      expect(player[1]).to.equal("Alice"); // name
-      expect(player[2]).to.equal(0n); // rankingPoints
+      assert.strictEqual(player[0], "LIC001"); // licenceNumber
+      assert.strictEqual(player[1], "Alice"); // name
+      assert.strictEqual(player[2], 0n); // rankingPoints
     });
 
     it("Devrait échouer si le numéro de licence est vide", async function () {
-      try {
-        await padelRank.write.addPlayer(["", "Alice"]);
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.message).to.include("Licence number cannot be empty");
-      }
+      await assert.rejects(
+        async () => {
+          await padelRank.write.addPlayer(["", "Alice"]);
+        },
+        (error: any) => {
+          return error.message.includes("Licence number cannot be empty");
+        },
+      );
     });
 
     it("Devrait échouer si le nom est vide", async function () {
-      try {
-        await padelRank.write.addPlayer(["LIC001", ""]);
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.message).to.include("Name cannot be empty");
-      }
+      await assert.rejects(
+        async () => {
+          await padelRank.write.addPlayer(["LIC001", ""]);
+        },
+        (error: any) => {
+          return error.message.includes("Name cannot be empty");
+        },
+      );
     });
 
     it("Devrait échouer si le joueur existe déjà", async function () {
       await padelRank.write.addPlayer(["LIC001", "Alice"]);
 
-      try {
-        await padelRank.write.addPlayer(["LIC001", "Bob"]);
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.message).to.include("Player already exists");
-      }
+      await assert.rejects(
+        async () => {
+          await padelRank.write.addPlayer(["LIC001", "Bob"]);
+        },
+        (error: any) => {
+          return error.message.includes("Player already exists");
+        },
+      );
     });
   });
 
@@ -111,7 +117,7 @@ describe("PadelRank", function () {
       await padelRank.write.updatePlayerRanking(["LIC001", 100n]);
 
       const player = await padelRank.read.getPlayer(["LIC001"]);
-      expect(player[2]).to.equal(100n); // rankingPoints
+      assert.strictEqual(player[2], 100n);
     });
 
     it("Devrait ajouter les points de manière cumulative", async function () {
@@ -120,16 +126,18 @@ describe("PadelRank", function () {
       await padelRank.write.updatePlayerRanking(["LIC001", 50n]);
 
       const player = await padelRank.read.getPlayer(["LIC001"]);
-      expect(player[2]).to.equal(150n);
+      assert.strictEqual(player[2], 150n);
     });
 
     it("Devrait échouer si le joueur n'existe pas", async function () {
-      try {
-        await padelRank.write.updatePlayerRanking(["LIC999", 100n]);
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.message).to.include("Player does not exist");
-      }
+      await assert.rejects(
+        async () => {
+          await padelRank.write.updatePlayerRanking(["LIC999", 100n]);
+        },
+        (error: any) => {
+          return error.message.includes("Player does not exist");
+        },
+      );
     });
   });
 
@@ -139,25 +147,27 @@ describe("PadelRank", function () {
       await padelRank.write.updatePlayerRanking(["LIC001", 250n]);
 
       const player = await padelRank.read.getPlayer(["LIC001"]);
-      expect(player[0]).to.equal("LIC001");
-      expect(player[1]).to.equal("Alice");
-      expect(player[2]).to.equal(250n);
+      assert.strictEqual(player[0], "LIC001");
+      assert.strictEqual(player[1], "Alice");
+      assert.strictEqual(player[2], 250n);
     });
 
     it("Devrait échouer si le joueur n'existe pas", async function () {
-      try {
-        await padelRank.read.getPlayer(["LIC999"]);
-        expect.fail("Should have thrown an error");
-      } catch (error: any) {
-        expect(error.message).to.include("Player does not exist");
-      }
+      await assert.rejects(
+        async () => {
+          await padelRank.read.getPlayer(["LIC999"]);
+        },
+        (error: any) => {
+          return error.message.includes("Player does not exist");
+        },
+      );
     });
   });
 
   describe("getTenBestPlayers", function () {
     it("Devrait retourner un tableau vide si aucun joueur", async function () {
       const topPlayers = await padelRank.read.getTenBestPlayers();
-      expect(topPlayers.length).to.equal(0);
+      assert.strictEqual(topPlayers.length, 0);
     });
 
     it("Devrait retourner tous les joueurs s'il y en a moins de 10", async function () {
@@ -170,7 +180,7 @@ describe("PadelRank", function () {
       await padelRank.write.updatePlayerRanking(["LIC003", 150n]);
 
       const topPlayers = await padelRank.read.getTenBestPlayers();
-      expect(topPlayers.length).to.equal(3);
+      assert.strictEqual(topPlayers.length, 3);
     });
 
     it("Devrait retourner les joueurs triés par ordre décroissant", async function () {
@@ -184,9 +194,9 @@ describe("PadelRank", function () {
 
       const topPlayers = await padelRank.read.getTenBestPlayers();
 
-      expect(topPlayers[0][0]).to.equal("LIC002"); // Bob (300)
-      expect(topPlayers[1][0]).to.equal("LIC003"); // Charlie (200)
-      expect(topPlayers[2][0]).to.equal("LIC001"); // Alice (100)
+      assert.strictEqual(topPlayers[0][0], "LIC002"); // Bob (300)
+      assert.strictEqual(topPlayers[1][0], "LIC003"); // Charlie (200)
+      assert.strictEqual(topPlayers[2][0], "LIC001"); // Alice (100)
     });
 
     it("Devrait maintenir seulement 10 joueurs dans le top", async function () {
@@ -198,11 +208,11 @@ describe("PadelRank", function () {
       }
 
       const topPlayers = await padelRank.read.getTenBestPlayers();
-      expect(topPlayers.length).to.equal(10);
+      assert.strictEqual(topPlayers.length, 10);
 
       // Vérifier que ce sont bien les 10 meilleurs (points de 150 à 60)
-      expect(topPlayers[0][2]).to.equal(150n); // Player15
-      expect(topPlayers[9][2]).to.equal(60n); // Player6
+      assert.strictEqual(topPlayers[0][2], 150n); // Player15
+      assert.strictEqual(topPlayers[9][2], 60n); // Player6
     });
 
     it("Devrait mettre à jour le top 10 quand un joueur améliore son score", async function () {
@@ -216,15 +226,15 @@ describe("PadelRank", function () {
       // Player1 (10 points) n'est pas dans le top 10
       let topPlayers = await padelRank.read.getTenBestPlayers();
       const licencesInTop = topPlayers.map((p: any) => p[0]);
-      expect(licencesInTop).to.not.include("LIC001");
+      assert.ok(!licencesInTop.includes("LIC001"));
 
       // Player1 gagne 200 points (total: 210)
       await padelRank.write.updatePlayerRanking(["LIC001", 200n]);
 
       // Player1 devrait maintenant être dans le top 10
       topPlayers = await padelRank.read.getTenBestPlayers();
-      expect(topPlayers[0][0]).to.equal("LIC001"); // Premier avec 210 points
-      expect(topPlayers.length).to.equal(10);
+      assert.strictEqual(topPlayers[0][0], "LIC001"); // Premier avec 210 points
+      assert.strictEqual(topPlayers.length, 10);
     });
 
     it("Devrait gérer correctement les égalités de points", async function () {
@@ -237,10 +247,10 @@ describe("PadelRank", function () {
       await padelRank.write.updatePlayerRanking(["LIC003", 100n]);
 
       const topPlayers = await padelRank.read.getTenBestPlayers();
-      expect(topPlayers.length).to.equal(3);
-      expect(topPlayers[0][2]).to.equal(100n);
-      expect(topPlayers[1][2]).to.equal(100n);
-      expect(topPlayers[2][2]).to.equal(100n);
+      assert.strictEqual(topPlayers.length, 3);
+      assert.strictEqual(topPlayers[0][2], 100n);
+      assert.strictEqual(topPlayers[1][2], 100n);
+      assert.strictEqual(topPlayers[2][2], 100n);
     });
 
     it("Devrait maintenir l'ordre après plusieurs mises à jour", async function () {
@@ -259,11 +269,11 @@ describe("PadelRank", function () {
 
       const topPlayers = await padelRank.read.getTenBestPlayers();
 
-      expect(topPlayers[0][0]).to.equal("LIC003"); // 550 points
-      expect(topPlayers[1][0]).to.equal("LIC005"); // 500 points
-      expect(topPlayers[2][0]).to.equal("LIC001"); // 450 points
-      expect(topPlayers[3][0]).to.equal("LIC004"); // 400 points
-      expect(topPlayers[4][0]).to.equal("LIC002"); // 200 points
+      assert.strictEqual(topPlayers[0][0], "LIC003"); // 550 points
+      assert.strictEqual(topPlayers[1][0], "LIC005"); // 500 points
+      assert.strictEqual(topPlayers[2][0], "LIC001"); // 450 points
+      assert.strictEqual(topPlayers[3][0], "LIC004"); // 400 points
+      assert.strictEqual(topPlayers[4][0], "LIC002"); // 200 points
     });
   });
 
@@ -307,15 +317,15 @@ describe("PadelRank", function () {
       const topPlayers = await padelRank.read.getTenBestPlayers();
 
       // Vérifier qu'on a bien 10 joueurs
-      expect(topPlayers.length).to.equal(10);
+      assert.strictEqual(topPlayers.length, 10);
 
       // Vérifier que les points sont en ordre décroissant
       for (let i = 0; i < topPlayers.length - 1; i++) {
-        expect(topPlayers[i][2]).to.be.at.least(topPlayers[i + 1][2]);
+        assert.ok(topPlayers[i][2] >= topPlayers[i + 1][2]);
       }
 
       // Le meilleur devrait avoir 500 points
-      expect(topPlayers[0][2]).to.equal(500n);
+      assert.strictEqual(topPlayers[0][2], 500n);
     });
   });
 });

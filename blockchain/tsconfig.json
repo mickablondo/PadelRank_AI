@@ -1,13 +1,16 @@
-/* Based on https://github.com/tsconfig/bases/blob/501da2bcd640cf95c95805783e1012b992338f28/bases/node22.json */
 {
   "compilerOptions": {
-    "lib": ["es2023"],
-    "module": "ES2022",
-    "target": "es2022",
-    "strict": false,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
+    "target": "ES2022",
+    "module": "ESNext",
     "moduleResolution": "bundler",
-    "outDir": "dist"
-  }
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node", "mocha", "chai"]
+  },
+  "include": ["./test/**/*.ts", "./scripts/**/*.ts", "hardhat.config.ts"],
+  "files": ["./hardhat.config.ts"]
 }
