@@ -1,6 +1,6 @@
 # Partie blockchain
 
-Pour la oartie blockchain, j'ai choisi d'utiliser [Hardhat](https://hardhat.org/).
+Pour la partie blockchain, j'ai choisi d'utiliser [Hardhat](https://hardhat.org/).
 
 ## Initialisation du projet
 
@@ -23,6 +23,10 @@ npm install --save-dev "@nomicfoundation/hardhat-toolbox-viem@^5.0.1" "@nomicfou
 ```bash
 npm install
 ```
+
+### Exécuter les tests
+
+![Tests côté blockchain](../images/blockchain_tests.png)
 
 ### Documentation officielle - Sample Hardhat 3 Beta Project (`node:test` and `viem`)
 

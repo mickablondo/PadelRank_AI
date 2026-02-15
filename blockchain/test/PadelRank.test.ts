@@ -70,9 +70,9 @@ describe("PadelRank", function () {
       await padelRank.write.addPlayer(["LIC001", "Alice"]);
 
       const player = await padelRank.read.getPlayer(["LIC001"]);
-      assert.strictEqual(player[0], "LIC001"); // licenceNumber
-      assert.strictEqual(player[1], "Alice"); // name
-      assert.strictEqual(player[2], 0n); // rankingPoints
+      assert.strictEqual(player.licenceNumber, "LIC001"); // licenceNumber
+      assert.strictEqual(player.name, "Alice"); // name
+      assert.strictEqual(player.rankingPoints, 0n); // rankingPoints
     });
 
     it("Devrait échouer si le numéro de licence est vide", async function () {
@@ -117,7 +117,7 @@ describe("PadelRank", function () {
       await padelRank.write.updatePlayerRanking(["LIC001", 100n]);
 
       const player = await padelRank.read.getPlayer(["LIC001"]);
-      assert.strictEqual(player[2], 100n);
+      assert.strictEqual(player.rankingPoints, 100n);
     });
 
     it("Devrait ajouter les points de manière cumulative", async function () {
@@ -126,7 +126,7 @@ describe("PadelRank", function () {
       await padelRank.write.updatePlayerRanking(["LIC001", 50n]);
 
       const player = await padelRank.read.getPlayer(["LIC001"]);
-      assert.strictEqual(player[2], 150n);
+      assert.strictEqual(player.rankingPoints, 150n);
     });
 
     it("Devrait échouer si le joueur n'existe pas", async function () {
@@ -147,9 +147,9 @@ describe("PadelRank", function () {
       await padelRank.write.updatePlayerRanking(["LIC001", 250n]);
 
       const player = await padelRank.read.getPlayer(["LIC001"]);
-      assert.strictEqual(player[0], "LIC001");
-      assert.strictEqual(player[1], "Alice");
-      assert.strictEqual(player[2], 250n);
+      assert.strictEqual(player.licenceNumber, "LIC001");
+      assert.strictEqual(player.name, "Alice");
+      assert.strictEqual(player.rankingPoints, 250n);
     });
 
     it("Devrait échouer si le joueur n'existe pas", async function () {
@@ -194,9 +194,9 @@ describe("PadelRank", function () {
 
       const topPlayers = await padelRank.read.getTenBestPlayers();
 
-      assert.strictEqual(topPlayers[0][0], "LIC002"); // Bob (300)
-      assert.strictEqual(topPlayers[1][0], "LIC003"); // Charlie (200)
-      assert.strictEqual(topPlayers[2][0], "LIC001"); // Alice (100)
+      assert.strictEqual(topPlayers[0].licenceNumber, "LIC002"); // Bob (300)
+      assert.strictEqual(topPlayers[1].licenceNumber, "LIC003"); // Charlie (200)
+      assert.strictEqual(topPlayers[2].licenceNumber, "LIC001"); // Alice (100)
     });
 
     it("Devrait maintenir seulement 10 joueurs dans le top", async function () {
@@ -211,8 +211,8 @@ describe("PadelRank", function () {
       assert.strictEqual(topPlayers.length, 10);
 
       // Vérifier que ce sont bien les 10 meilleurs (points de 150 à 60)
-      assert.strictEqual(topPlayers[0][2], 150n); // Player15
-      assert.strictEqual(topPlayers[9][2], 60n); // Player6
+      assert.strictEqual(topPlayers[0].rankingPoints, 150n); // Player15
+      assert.strictEqual(topPlayers[9].rankingPoints, 60n); // Player6
     });
 
     it("Devrait mettre à jour le top 10 quand un joueur améliore son score", async function () {
@@ -233,7 +233,7 @@ describe("PadelRank", function () {
 
       // Player1 devrait maintenant être dans le top 10
       topPlayers = await padelRank.read.getTenBestPlayers();
-      assert.strictEqual(topPlayers[0][0], "LIC001"); // Premier avec 210 points
+      assert.strictEqual(topPlayers[0].licenceNumber, "LIC001"); // Premier avec 210 points
       assert.strictEqual(topPlayers.length, 10);
     });
 
@@ -248,9 +248,9 @@ describe("PadelRank", function () {
 
       const topPlayers = await padelRank.read.getTenBestPlayers();
       assert.strictEqual(topPlayers.length, 3);
-      assert.strictEqual(topPlayers[0][2], 100n);
-      assert.strictEqual(topPlayers[1][2], 100n);
-      assert.strictEqual(topPlayers[2][2], 100n);
+      assert.strictEqual(topPlayers[0].rankingPoints, 100n);
+      assert.strictEqual(topPlayers[1].rankingPoints, 100n);
+      assert.strictEqual(topPlayers[2].rankingPoints, 100n);
     });
 
     it("Devrait maintenir l'ordre après plusieurs mises à jour", async function () {
@@ -269,11 +269,11 @@ describe("PadelRank", function () {
 
       const topPlayers = await padelRank.read.getTenBestPlayers();
 
-      assert.strictEqual(topPlayers[0][0], "LIC003"); // 550 points
-      assert.strictEqual(topPlayers[1][0], "LIC005"); // 500 points
-      assert.strictEqual(topPlayers[2][0], "LIC001"); // 450 points
-      assert.strictEqual(topPlayers[3][0], "LIC004"); // 400 points
-      assert.strictEqual(topPlayers[4][0], "LIC002"); // 200 points
+      assert.strictEqual(topPlayers[0].licenceNumber, "LIC003"); // 550 points
+      assert.strictEqual(topPlayers[1].licenceNumber, "LIC005"); // 500 points
+      assert.strictEqual(topPlayers[2].licenceNumber, "LIC001"); // 450 points
+      assert.strictEqual(topPlayers[3].licenceNumber, "LIC004"); // 400 points
+      assert.strictEqual(topPlayers[4].licenceNumber, "LIC002"); // 200 points
     });
   });
 
@@ -321,11 +321,13 @@ describe("PadelRank", function () {
 
       // Vérifier que les points sont en ordre décroissant
       for (let i = 0; i < topPlayers.length - 1; i++) {
-        assert.ok(topPlayers[i][2] >= topPlayers[i + 1][2]);
+        assert.ok(
+          topPlayers[i].rankingPoints >= topPlayers[i + 1].rankingPoints,
+        );
       }
 
       // Le meilleur devrait avoir 500 points
-      assert.strictEqual(topPlayers[0][2], 500n);
+      assert.strictEqual(topPlayers[0].rankingPoints, 500n);
     });
   });
 });
