@@ -128,6 +128,7 @@ Merci de vous référer au README.md de chaque sous-partie :
 - [Frontend](./frontend/README.md)
 
 ## 🚧 Work in Progress
+
 - formulaire sur l'ihm [#4](https://github.com/mickablondo/PadelRank_AI/issues/4);
 - connexion ihm python [#4](https://github.com/mickablondo/PadelRank_AI/issues/4) ;
 - connexion ihm blockchain [#4](https://github.com/mickablondo/PadelRank_AI/issues/4) ;
@@ -137,10 +138,10 @@ Merci de vous référer au README.md de chaque sous-partie :
 ### Ebauche de l'IHM
 
 Page d'accueil :  
-![Page d'accueil](images/accueil.png)  
+![Page d'accueil](images/accueil.png)
 
 Page de classement :  
-![Classement](images/classement.png)  
+![Classement](images/classement.png)
 
 Page d'administration :  
 ![Administration](images/admin.png)
