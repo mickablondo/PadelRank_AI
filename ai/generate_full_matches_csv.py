@@ -35,10 +35,10 @@ for winner, loser, score, level in itertools.product(winner_ranks, loser_ranks, 
     # importance du tournoi
     multiplier = 1 + (level - 1) * 0.5
 
-    points_delta = round(
-        (base_points + exploit_bonus + score_bonus) * multiplier,
-        2
-    )
+    points_delta = min( # on ne donne pas + de 20 pts de bonus
+        round(
+            (base_points + exploit_bonus + score_bonus) * multiplier, 2)
+        , 20)
     matches.append([winner, loser, score, level, points_delta])
 
 # Créer DataFrame et sauvegarder CSV
